@@ -1,4 +1,4 @@
-name: Deploy SPA to GitHub Pages
+name: Deploy React App
 
 on:
   push:
@@ -6,23 +6,29 @@ on:
       - main
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+    - name: Checkout code
+      uses: actions/checkout@v3
 
-      - name: Install Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'
+    - name: Install Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
 
-      - name: Install dependencies
-        run: npm install
+    - name: Install dependencies
+      run: npm install
 
-      - name: Build project
-        run: npm run build
+    - name: Build the React App
+      run: npm run build
 
-      - name: Deploy to GitHub Pages
-        run: npm run deploy
+    - name: Deploy to GitHub Pages
+      run: |
+        git config --global user.email "your-email@example.com"
+        git config --global user.name "sam-kalra"
+        npm run deploy
+      env:
+        CI: false
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
