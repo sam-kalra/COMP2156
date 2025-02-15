@@ -1,0 +1,4 @@
+mkdir comp2156
+cd comp2156
+git init
+
