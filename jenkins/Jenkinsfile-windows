@@ -3,22 +3,32 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/sam-kalra/COMP2156'
+                script {
+                    // Checkout the main branch from your repository
+                    checkout scm: [
+                        $class: 'GitSCM', 
+                        branches: [[name: '*/main']],  // Use 'main' here
+                        userRemoteConfigs: [[url: 'https://github.com/sam-kalra/COMP2156']]
+                    ]
+                }
             }
         }
         stage('Build') {
             steps {
-                echo 'Building project...'
+                // Add your build steps here
+                echo 'Building...'
             }
         }
         stage('Test') {
             steps {
-                echo 'Running tests...'
+                // Add your test steps here
+                echo 'Testing...'
             }
         }
         stage('Deploy') {
             steps {
-                echo 'Deploying application...'
+                // Add your deploy steps here
+                echo 'Deploying...'
             }
         }
     }
